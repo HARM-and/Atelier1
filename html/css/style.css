@@ -1,5 +1,6 @@
 ----------------------------------- html * {
   margin: 0em;
+  font-size: 5em;
 }
 
 body {
@@ -7,7 +8,7 @@ body {
 }
 
 .main_container {
-  height: auto;
+  border: solid black;
 }
 
 .nav_bar {
@@ -54,6 +55,16 @@ body {
   margin: 10px;
   background-color: #dadada;
   margin: 1%;
+}
+
+.list_produit:nth-of-type(2n) {
+  background-color: #eee;
+  border: solid 1px black;
+}
+
+.list_produit:nth-of-type(2n+1) {
+  background-color: #ccc;
+  border: solid 1px black;
 }
 
 .article_content {
