@@ -5,7 +5,7 @@ namespace hangarapp\model;
 class Producteur extends \Illuminate\Database\Eloquent\Model
 {
 
-       protected $table      = 'producteur';  /* le nom de la table */
+       protected $table      = 'Producteur';  /* le nom de la table */
        protected $primaryKey = 'id';     /* le nom de la clé primaire */
        public    $timestamps = false;    /* si vrai la table doit contenir
                                             les deux colonnes updated_at,
