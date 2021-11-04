@@ -10,7 +10,7 @@ body {
   height: auto;
 }
 
-.header {
+.nav_bar {
   height: 10vh;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
