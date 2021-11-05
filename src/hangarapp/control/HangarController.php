@@ -51,9 +51,37 @@ class HangarController extends \mf\control\AbstractController {
     
     public function viewHome(){
 
-        $produit = Produit::select('*')->groupBy('nom')->orderBy('Id_Categorie')->orderBy('nom')->get();
-        $vueProduit = new HangarView($produit);
+        $info["produit"] = Produit::select('*')->orderBy('Id_Categorie')->orderBy('nom')->get();
+        $info["categorie"] = Categorie::select('*')->orderBy('nom')->get();
+        $vueProduit = new HangarView($info);
         echo $vueProduit->render('renderHome');
+
+    }
+
+    public function viewTest(){
+        $info = array();
+        $a="";
+        $b="";
+        $tic = false;
+        foreach ($_POST as $data)
+        {
+            $b = $a;
+            $a = $data;
+            if (($a != 0) && ($tic == true))
+            {
+                $info[] = array("id"=>$b,"qte"=>$a);
+            }
+            if ($tic == false)
+            {
+                $tic = true;
+            }
+            else
+            {
+                $tic = false;
+            }
+        }
+        $vue = new HangarView($info);
+        echo $vue->render('renderTest');
 
     }
 

@@ -39,9 +39,7 @@ class HangarView extends AbstractView
      */
     private function renderFooter()
     {
-        return "</div>
-        <script src=\"/lehangar/html/js/jquery-3.2.1.js\"></script>
-        <script src=\"/lehangar/html/js/script.js\"></script>";
+        return "</div>";
     }
 
      /* Méthode renderNav
@@ -73,12 +71,13 @@ class HangarView extends AbstractView
      *  
      */
     
-    private function renderCoucou()
+    private function renderTest()
     {
 
-       $displayTweets = "coucou";
-
-         return $displayTweets;
+       
+        echo "Votre achat à bien été ajouté au panier";
+        var_dump($this->data);
+        setcookie("Panier", json_encode($this->data), time()+60);
 
 
     }
@@ -94,16 +93,45 @@ class HangarView extends AbstractView
     private function renderHome()
     {
 
-        $produits = $this->data;
+        $produits = $this->data["produit"];
+        $categories = $this->data["categorie"];
         $displayProduits= "";
+        $displayProduits .= "<form action=\"/lehangar/main/test/\" method=\"POST\"><div class=\"container_produit\">";
+
+        foreach ($categories as $categorie)
+        {
+            $displayProduits .= "<div class=\"container_categorie\">";
+            $displayProduits .= "<h1>$categorie->Nom</h1>";
+        
         foreach ($produits as $produit)
         {
+            if ($produit->Id_Categorie == $categorie->Id)
+            {
+            
             $displayProduits .= "<div class=\"list_produit\">
             $produit->Nom
-            <div class=\"info_produit\">Produit : $produit->Nom $produit->Description | Prix/Unité : $produit->Tarif_Unitaire | </div>
-        </div>\n";
+        <div class=\"info_produit\">
+            <div class=\"cell_produit\">
 
+                    <img class=\"photo_produit\" src=\"/lehangar/html/img/$produit->Photo\" alt=\"Image of $produit->Nom\">
+                </div>
+                <div class=\"cell_produit\">
+                    <ul>
+                        <li>Info: $produit->Description</li>
+                        <li>Prix/Unité : $produit->Tarif_Unitaire</li>
+                        <li><input style=\"display:none\" type=\"text\" value=\"$produit->Id\" name=\"valueOf$produit->Id\"></li>
+                        <li><input type=\"number\" value=\"0\" name=\"$produit->Id\"></li>
+                        <li><input type=\"submit\"value=\"ADD\"></li>
+                    </ul>
+                </div>
+        </div>
+    </div>\n";
+
+            }
         }
+        $displayProduits .= "</div>";
+        }
+        $displayProduits .= "</div>";
 
         return $displayProduits;
         
@@ -138,6 +166,11 @@ class HangarView extends AbstractView
             case 'renderHome':
                 $navBar = $this->renderNav();
                 $center = $this->renderHome();
+                break;
+
+            case 'renderTest':
+                $navBar = $this->renderNav();
+                $center = $this->renderTest();
                 break;
 
             default:

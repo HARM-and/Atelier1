@@ -47,6 +47,11 @@ $router->addRoute('home',
                   '\hangarapp\control\HangarController',
                   'viewHome');
 
+$router->addRoute('test',
+                  '/test/',
+                  '\hangarapp\control\HangarController',
+                  'viewTest');
+
                 
 $router->setDefaultRoute('/home/');
 
