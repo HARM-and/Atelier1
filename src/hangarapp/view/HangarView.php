@@ -30,7 +30,7 @@ class HangarView extends AbstractView
      */ 
     private function renderHeader()
     {
-        return "<div class='theme-backcolor1'><h1>Le Hangar</h1>%%NAV%%</div><div class='theme-backcolor2'>";
+        return "<div class=\"main_container\"><h1>Le Hangar</h1>%%NAV%%";
     }
     
     /* Méthode renderFooter
@@ -39,7 +39,9 @@ class HangarView extends AbstractView
      */
     private function renderFooter()
     {
-        return "</div><div class='theme-backcolor1 tweet-footer'>La super app créée en Licence Pro &copy;2021</div>";
+        return "</div>
+        <script src=\"/lehangar/html/js/jquery-3.2.1.js\"></script>
+        <script src=\"/lehangar/html/js/script.js\"></script>";
     }
 
      /* Méthode renderNav
@@ -55,8 +57,13 @@ class HangarView extends AbstractView
 
         $link_form =$route->urlFor('home');
 
-        $nav = "<div><a href=".$link_home.">🛒</a></div>
-        <div><a href=".$link_form.">👤</a></div>";
+        $nav = "<div class=\"nav_bar\">
+    <div id=\"btn_panier\">
+        <a href=".$link_home.">🛒</a>
+    </div>
+    <div id=\"btn_connexion\">
+        <a href=".$link_form.">👤</a>
+    </div></div>";
         return $nav;
     }
 
@@ -66,7 +73,7 @@ class HangarView extends AbstractView
      *  
      */
     
-    private function renderHome()
+    private function renderCoucou()
     {
 
        $displayTweets = "coucou";
@@ -84,31 +91,21 @@ class HangarView extends AbstractView
      *
      */
     
-    private function renderViewTweet()
+    private function renderHome()
     {
 
-        /* 
-         * Retourne le fragment HTML qui réalise l'affichage d'un tweet 
-         * en particulié 
-         * 
-         * L'attribut $this->data contient un objet Tweet
-         *
-         */
+        $produits = $this->data;
+        $displayProduits= "";
+        foreach ($produits as $produit)
+        {
+            $displayProduits .= "<div class=\"list_produit\">
+            $produit->Nom
+            <div class=\"info_produit\">Produit : $produit->Nom $produit->Description | Prix/Unité : $produit->Tarif_Unitaire | </div>
+        </div>\n";
 
-        $route = new Router();
+        }
 
-        $tweet = $this->data;
-        $author = $tweet->author()->first();
-
-        $link_user = $route->urlFor('usertweets',[['id',"$author->id"]]);
-
-        $htmlTweet =
-            "<div class='tweet'><div> $tweet->text</div>
-             <div class='tweet-author'> <a href=" . $link_user . "> $author->username </a>\n</div>
-             <div class='tweet-footer'>Created at $tweet->created_at \n</div>
-             <div class='tweet-score'>👍 $tweet->score \n</div></div>";
-
-       return $htmlTweet;
+        return $displayProduits;
         
     }
 
@@ -132,15 +129,15 @@ class HangarView extends AbstractView
          */
 
         $header = $this->renderHeader();
-        $center = "";
         $navBar = "";
+        $center = "";
         $footer = $this->renderFooter();
         
         // variable $$ au lieu du case ??    
         switch ($selector) {
             case 'renderHome':
-                $center = $this->renderHome();
                 $navBar = $this->renderNav();
+                $center = $this->renderHome();
                 break;
 
             default:

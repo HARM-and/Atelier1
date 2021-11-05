@@ -5,7 +5,7 @@ namespace mf\view;
 abstract class AbstractView {
 
     static protected $style_sheets = []; /* un tableau de fichiers style */
-    static protected $app_title    = "MF app Title"; /* un titre de document */
+    static protected $app_title    = "Le Hangar"; /* un titre de document */
     
     protected $data        = null; /* les données nécessaires */
     
@@ -124,11 +124,11 @@ abstract class AbstractView {
     <head>
         <meta charset="utf-8">
         <title>${title}</title>
-        <link rel="shortcut icon" type="image/x-icon" href="src/favicon/favicon" />
+        <link rel="shortcut icon" type="image/x-icon" href="/lehangar/html/favicon/favicon" />
 	    ${styles}
     </head>
 
-    <body class="main_container">
+    <body>
         
        ${body}
 

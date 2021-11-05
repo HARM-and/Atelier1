@@ -51,9 +51,8 @@ class HangarController extends \mf\control\AbstractController {
     
     public function viewHome(){
 
-        $produit = Produit::all();
+        $produit = Produit::select('*')->groupBy('nom')->orderBy('Id_Categorie')->orderBy('nom')->get();
         $vueProduit = new HangarView($produit);
-        // echo $vueTweets->renderHome();
         echo $vueProduit->render('renderHome');
 
     }
