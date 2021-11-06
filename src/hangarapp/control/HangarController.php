@@ -49,17 +49,12 @@ class HangarController extends \mf\control\AbstractController {
      * 
      */
     
-    public function viewHome(){
-
-        $info["produit"] = Produit::select('*')->orderBy('Id_Categorie')->orderBy('nom')->get();
-        $info["categorie"] = Categorie::select('*')->orderBy('nom')->get();
-        $vueProduit = new HangarView($info);
-        echo $vueProduit->render('renderHome');
-
-    }
-
-    public function viewTest(){
+    public function viewHome()
+    {
+        if (isset($_POST))
+        {
         $info = array();
+        $info_cookie = array();
         $a="";
         $b="";
         $tic = false;
@@ -69,7 +64,7 @@ class HangarController extends \mf\control\AbstractController {
             $a = $data;
             if (($a != 0) && ($tic == true))
             {
-                $info[] = array("id"=>$b,"qte"=>$a);
+                $info_cookie[] = array("id"=>$b,"qte"=>$a);
             }
             if ($tic == false)
             {
@@ -80,9 +75,23 @@ class HangarController extends \mf\control\AbstractController {
                 $tic = false;
             }
         }
-        $vue = new HangarView($info);
-        echo $vue->render('renderTest');
+        if (isset($_COOKIE["Panier"]))
+        {       
+             setcookie("Panier", substr($_COOKIE["Panier"], 0, -1).(ltrim(json_encode($info_cookie), '[')),"",'/');
+        }
+        else
+        {
+        setcookie("Panier", json_encode($info_cookie),"",'/');
+        }
+        }
+        $info["produit"] = Produit::select('*')->orderBy('Id_Categorie')->orderBy('nom')->get();
+        $info["categorie"] = Categorie::select('*')->orderBy('nom')->get();
+        $vueProduit = new HangarView($info);
+        echo $vueProduit->render('renderHome');
 
     }
+
+
+        
 
 }
