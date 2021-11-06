@@ -57,22 +57,22 @@ class HangarController extends \mf\control\AbstractController {
         $info_cookie = array();
         $a="";
         $b="";
-        $tic = false;
+        $c="";
+        $tic = 0;
         foreach ($_POST as $data)
         {
+            $c = $b;
             $b = $a;
             $a = $data;
-            if (($a != 0) && ($tic == true))
+            if (($a != 0) && ($tic == 2))
             {
-                $info_cookie[] = array("id"=>$b,"qte"=>$a);
+                var_dump("coucou");
+                $info_cookie[] = array("id"=>$c,"qte"=>$b, "prix"=>$a);
             }
-            if ($tic == false)
+            $tic += 1;
+            if ($tic >= 3)
             {
-                $tic = true;
-            }
-            else
-            {
-                $tic = false;
+                $tic = 0;
             }
         }
         if (isset($_COOKIE["Panier"]))

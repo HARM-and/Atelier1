@@ -15,41 +15,29 @@ use mf\view\AbstractView as AbstractView ;
 class HangarView extends AbstractView 
 {
   
-    /* Constructeur 
-    *
-    * Appelle le constructeur de la classe parent
-    */
+
     public function __construct( $data )
     {
         parent::__construct($data);
     }
 
-    /* Méthode renderHeader
-     *
-     *  Retourne le fragment HTML de l'entête (unique pour toutes les vues)
-     */ 
+
     private function renderHeader()
     {
         return "<div class=\"main_container\"><h1>Le Hangar</h1>%%NAV%%";
     }
     
-    /* Méthode renderFooter
-     *
-     * Retourne le fragment HTML du bas de la page (unique pour toutes les vues)
-     */
+
     private function renderFooter()
     {
         return "</div>";
     }
 
-     /* Méthode renderNav
-     *
-     * Retourne le fragment HTML du menu de naviguation 
-     */
+
     private function renderNav()
     {
         $route = new Router();
-        $link_home =$route->urlFor('home');
+        $link_panier =$route->urlFor('panier');
         $link_login =$route->urlFor('home');
         $link_register =$route->urlFor('home');
 
@@ -57,46 +45,20 @@ class HangarView extends AbstractView
 
         $nav = "<div class=\"nav_bar\">
     <div id=\"btn_panier\">
-        <a href=".$link_home.">🛒</a>
+        <a href=".$link_panier.">🛒</a>
     </div>
     <div id=\"btn_connexion\">
         <a href=".$link_form.">👤</a>
     </div></div>";
         return $nav;
     }
-
-    /* Méthode renderHome
-     *
-     * 
-     *  
-     */
-    
-    private function renderTest()
-    {
-
-       
-        echo "Votre achat à bien été ajouté au panier";
-        var_dump($this->data);
-        setcookie("Panier", json_encode($this->data), time()+60);
-
-
-    }
-  
-
-  
-    /* Méthode renderViewTweet 
-     * 
-     * Réalise la vue de la fonctionnalité affichage d'un tweet
-     *
-     */
     
     private function renderHome()
     {
-
         $produits = $this->data["produit"];
         $categories = $this->data["categorie"];
         $displayProduits= "";
-        $displayProduits .= "<form action=\"/lehangar/main/test/\" method=\"POST\"><div class=\"container_produit\">";
+        $displayProduits .= "<form action=\"/lehangar/main/home/\" method=\"POST\"><div class=\"container_produit\">";
 
         foreach ($categories as $categorie)
         {
@@ -120,6 +82,7 @@ class HangarView extends AbstractView
                         <li>Info: $produit->Description</li>
                         <li>Prix/Unité : $produit->Tarif_Unitaire</li>
                         <li><input style=\"display:none\" type=\"text\" value=\"$produit->Id\" name=\"valueOf$produit->Id\"></li>
+                        <li><input style=\"display:none\" type=\"text\" value=\"$produit->Tarif_Unitaire\" name=\"PriceOf$produit->Id\"></li>
                         <li><input type=\"number\" value=\"0\" name=\"$produit->Id\"></li>
                         <li><input type=\"submit\"value=\"ADD\"></li>
                     </ul>
