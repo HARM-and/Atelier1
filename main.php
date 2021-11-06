@@ -42,15 +42,41 @@ $db->setAsGlobal();            /* rendre la connexion visible dans tout le proje
 $db->bootEloquent();           /* établir la connexion */
 
 $router = new Router();
+
 $router->addRoute('home',
                   '/home/',
                   '\hangarapp\control\HangarController',
                   'viewHome');
 
-$router->addRoute('test',
-                  '/test/',
+$router->addRoute('panier',
+                  '/panier/',
                   '\hangarapp\control\HangarController',
-                  'viewTest');
+                  'viewPanier');
+
+$router->addRoute(
+    'producteur',
+    '/producteur/',
+    '\hangarapp\control\HangarController',
+    'viewProducteur'
+);
+
+$router->addRoute('unProducteur',
+                  '/unProducteur/',
+                  '\hangarapp\control\HangarController',
+                  'viewunProducteur');
+
+$router->addRoute('commande',
+   				 '/commande/',
+    '\hangarapp\control\HangarController',
+    'viewCommande'
+);
+
+$router->addRoute('finalisation',
+    '/finalisation/',
+    '\hangarapp\control\HangarController',
+    'viewValid'
+);
+
 
                 
 $router->setDefaultRoute('/home/');
